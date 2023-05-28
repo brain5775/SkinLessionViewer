@@ -1,0 +1,7 @@
+.customField [disabled],.customField label{
+    -webkit-text-fill-color: rgb(31, 41, 55) !important;
+}
+
+.customField fieldset{
+    border-color: rgb(31, 41, 55) !important
+}
