@@ -11,31 +11,46 @@ export default function FormInfo() {
       <div className="p-5 grid grid-flow-row-dense grid-cols-2 gap-3">
         <div className="flex flex-col gap-2 col-span-2">
           <label className="text-lg font-bold">Type :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docTypeValue}
+          >
             {docTypeValue}
           </div>
         </div>
         <div className="flex flex-col gap-2 col-span-2">
           <label className="text-lg font-bold">Category :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docCategoryValue}
+          >
             {docCategoryValue}
           </div>
         </div>
         <div className="flex flex-col gap-2 max-md:col-span-2">
           <label className="text-lg font-bold">Patient Name :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docSubject}
+          >
             {docSubject}
           </div>
         </div>
         <div className="flex flex-col gap-2 max-md:col-span-2">
           <label className="text-lg font-bold">Patient Id :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docSubjectId}
+          >
             {docSubjectId}
           </div>
         </div>
         <div className="flex flex-col gap-2 col-span-2">
           <label className="text-lg font-bold">Date :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docDate}
+          >
             {formatDate(docDate)}
           </div>
         </div>
@@ -43,12 +58,12 @@ export default function FormInfo() {
           <label className="text-lg font-bold">Physician :</label>
           <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
             {physicianData.map((physician, index) => (
-              <div key={physician}>
+              <div key={index}>
                 {physician.code.map((cd, idx) => (
                   <span
                     key={idx}
                     className={
-                      cd.code === "RP" ? "text-indigo-600" : "text-blue-500"
+                      cd.code === "RP" ? "text-indigo-600" : "text-sky-300"
                     }
                   >
                     {cd.display}
@@ -57,21 +72,32 @@ export default function FormInfo() {
                     </span>
                   </span>
                 ))}{" "}
-                - <span>{physician.displayName} - </span>
-                <span>{physician.specialty.join(", ")}</span>
+                -{" "}
+                <span key={physician.displayName}>
+                  {physician.displayName} -{" "}
+                </span>
+                <span key={physician.specialty}>
+                  {physician.specialty.join(", ")}
+                </span>
               </div>
             ))}
           </div>
         </div>
         <div className="flex flex-col gap-2 col-span-2">
           <label className="text-lg font-bold">Title :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docTitle}
+          >
             {docTitle}
           </div>
         </div>
         <div className="flex flex-col gap-2 col-span-2">
           <label className="text-lg font-bold">Responsible Hospital :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={responsibleHospital}
+          >
             {responsibleHospital}
           </div>
         </div>
@@ -82,19 +108,28 @@ export default function FormInfo() {
       <div className="p-5 grid grid-flow-row-dense grid-cols-1 gap-3">
         <div className="flex flex-col gap-2">
           <label className="text-lg font-bold">Type :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={imageType}
+          >
             {imageType}
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-lg font-bold">Category :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={imageCategory}
+          >
             {imageCategory.join(", ")}
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-lg font-bold">Captured Date :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={capturedDate}
+          >
             {formatDate(capturedDate)}
           </div>
         </div>
@@ -102,7 +137,7 @@ export default function FormInfo() {
           <label className="text-lg font-bold">Physician :</label>
           <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
             {imageAuthorData.map((physician, index) => (
-              <div key={physician}>
+              <div key={physician + index}>
                 {physician.code.map((cd, idx) => (
                   <span
                     key={cd}
@@ -116,25 +151,53 @@ export default function FormInfo() {
                     </span>
                   </span>
                 ))}{" "}
-                - <span>{physician.displayName} - </span>
-                <span>{physician.specialty.join(", ")}</span>
+                -{" "}
+                <span key={physician.displayName}>
+                  {physician.displayName} -{" "}
+                </span>
+                <span key={physician.specialty}>
+                  {physician.specialty.join(", ")}
+                </span>
               </div>
             ))}
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-lg font-bold">Date :</label>
-          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+          <div
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            key={docDate}
+          >
             {formatDate(docDate)}
           </div>
         </div>
-        <div className="dash-line p-3 flex gap-2 max-w-full flex-wrap">
-          <img src={attachFile[0].url} height={200} width={200} alt="" />
-          <div className="flex flex-col">
-            <label className="text-lg font-bold">Date :</label>
-            <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
-              {attachTitle.join(", ")}
-            </div>
+        <div className="dash-line p-3 flex flex-col gap-2 max-w-full">
+          <div className="flex flex-col gap-3">
+            {attachFile.map((file, index) => {
+              if (file.contentType === "image")
+                return (
+                  <div
+                    className="flex gap-3 flex-wrap items-start w-full"
+                    key={file + index}
+                  >
+                    <img src={file.url} className="w-60 h-60" alt="" />
+                    <div className="flex flex-col gap-3  flex-auto">
+                      <label className="text-lg font-bold">
+                        Document Title :
+                      </label>
+                      <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+                        {file.title}
+                      </div>
+                    </div>
+                  </div>
+                );
+              else
+                return (
+                  <div className="w-full h-2/4" key={file + index}>
+                    INI {file.contentType}
+                  </div>
+                );
+            })}
           </div>
         </div>
       </div>
@@ -148,9 +211,11 @@ export default function FormInfo() {
 }
 // http://203.64.84.32:9876/fhir/Bundle/1747
 // http://203.64.84.32:9876/fhir/Bundle/1737
+// http://203.64.84.32:9876/fhir/Bundle/1852
+// https://203.64.84.150:58443/r5/fhir/DocumentReference/4439
 const getBundle = async () => {
   const response = await axios.get(
-    "http://203.64.84.32:9876/fhir/Bundle/1747",
+    "http://203.64.84.32:9876/fhir/Bundle/1852",
     {
       headers: { Authorization: `Bearer randToken` },
     }
@@ -180,7 +245,6 @@ let docSubjectId;
 const imageType = [];
 const imageCategory = [];
 let capturedDate;
-const attachTitle = [];
 const attachFile = [];
 const imageAuthorID = [];
 
@@ -206,10 +270,11 @@ entries.forEach((entry) => {
   if (entry.resource.resourceType === "DocumentReference") {
     entry.resource.content.forEach((cont) => {
       const attach = cont.attachment;
-      attachTitle.push(attach.title);
+      const newContentType = attach.contentType.split("/");
       attachFile.push({
-        contentType: attach.contentType,
+        contentType: newContentType[0],
         url: attach.url,
+        title: attach.title,
       });
     });
     capturedDate = entry.resource.date;
@@ -239,7 +304,7 @@ physicianID.forEach((id, index) => {
           providerRoles.concept.filter((cpt) => {
             if (cpt.code === coding.code)
               code.push({ code: coding.code, display: cpt.display });
-            return "";
+            return null;
           });
         })
       );
