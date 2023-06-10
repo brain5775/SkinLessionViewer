@@ -4,7 +4,7 @@ import { IconButton, Button, Typography, Container, Box } from "@mui/material";
 export default function Header() {
   return (
     <Box className="bg-gray-800 py-3">
-      <Container maxWidth="lg">
+      <div className="container mx-auto">
         <div className="flex justify-between">
           <div className="inline-flex gap-3 items-center title">
             <IconButton sx={iconButtonHover}>
@@ -23,7 +23,7 @@ export default function Header() {
             </Button>
           </div>
         </div>
-      </Container>
+      </div>
     </Box>
   );
 }

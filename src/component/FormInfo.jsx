@@ -1,13 +1,4 @@
-import {
-  Typography,
-  Container,
-  Divider,
-  CardMedia,
-  Button,
-  TextField,
-} from "@mui/material";
-
-import Grid from "@mui/material/Unstable_Grid2";
+import { data, prov } from "../test/data";
 
 import axios from "axios";
 import "../styles/formInfo.css";
@@ -15,202 +6,162 @@ import moment from "moment";
 
 export default function FormInfo() {
   return (
-    <Container maxWidth="lg" className="py-4">
-      <Grid container spacing={2}>
-        <Grid xs={12}>
-          <Typography variant="h6">Document general information :</Typography>
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Type"
-            className="customField"
-            value={docTypeValue}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Category"
-            className="customField"
-            value={docCategoryValue}
-          />
-        </Grid>
-        <Grid xs={6}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Patient Name"
-            className="customField"
-            value={docSubject}
-          />
-        </Grid>
-        <Grid xs={6}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Patient Id"
-            className="customField"
-            value={docSubjectId}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Date"
-            className="customField"
-            value={formatDate(docDate)}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Physician"
-            className="customField"
-            value={physician}
-            multiline
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Title"
-            className="customField"
-            value={docTitle}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Responsible hospital"
-            className="customField"
-            value={responsibleHospital}
-          />
-        </Grid>
-      </Grid>
-      <div className="my-5">
-        <Divider
-          flexItem
-          sx={{ border: "1.5px solid rgba(0,0,0,0.3)" }}></Divider>
-      </div>
-      <Grid container spacing={2}>
-        <Grid xs={12}>
-          <Typography variant="h6">Image information :</Typography>
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Type"
-            className="customField"
-            value={imageType}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Category"
-            className="customField"
-            value={imageCategory}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Captured Date"
-            className="customField"
-            value={formatDate(capturedDate)}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <TextField
-            variant="outlined"
-            size="small"
-            disabled
-            fullWidth
-            label="Physician"
-            className="customField"
-            value={imageAuthor}
-          />
-        </Grid>
-        <Grid xs={12}>
-          <div className="flex items-center gap-3 border border-gray-800 rounded-lg p-3">
-            <CardMedia
-              component="img"
-              sx={imgSize}
-              image={attachFile[0].url}
-              className="rounded-lg"
-            />
-
-            <TextField
-              variant="outlined"
-              size="small"
-              disabled
-              fullWidth
-              label="Image Title"
-              className="customField"
-              value={attachTitle}
-            />
+    <div className="container mx-auto py-12 text-slate-700 font-mono">
+      <h4 className="text-2xl font-bold ">Document general information :</h4>
+      <div className="p-5 grid grid-flow-row-dense grid-cols-2 gap-3">
+        <div className="flex flex-col gap-2 col-span-2">
+          <label className="text-lg font-bold">Type :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {docTypeValue}
           </div>
-        </Grid>
-        <Grid xs={12} className="flex justify-end">
-          <Button variant="contained" sx={buttonStyle}>
-            Create Report
-          </Button>
-        </Grid>
-      </Grid>
-    </Container>
+        </div>
+        <div className="flex flex-col gap-2 col-span-2">
+          <label className="text-lg font-bold">Category :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {docCategoryValue}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 max-md:col-span-2">
+          <label className="text-lg font-bold">Patient Name :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {docSubject}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 max-md:col-span-2">
+          <label className="text-lg font-bold">Patient Id :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {docSubjectId}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 col-span-2">
+          <label className="text-lg font-bold">Date :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {formatDate(docDate)}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 col-span-2">
+          <label className="text-lg font-bold">Physician :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {physicianData.map((physician, index) => (
+              <div key={physician}>
+                {physician.code.map((cd, idx) => (
+                  <span
+                    key={idx}
+                    className={
+                      cd.code === "RP" ? "text-indigo-600" : "text-blue-500"
+                    }
+                  >
+                    {cd.display}
+                    <span className="text-gray-800">
+                      {idx !== 0 ? "," : ""}
+                    </span>
+                  </span>
+                ))}{" "}
+                - <span>{physician.displayName} - </span>
+                <span>{physician.specialty.join(", ")}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 col-span-2">
+          <label className="text-lg font-bold">Title :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {docTitle}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 col-span-2">
+          <label className="text-lg font-bold">Responsible Hospital :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {responsibleHospital}
+          </div>
+        </div>
+      </div>
+      <div className="dash-line my-4 h-px" />
+
+      <h4 className="text-2xl font-bold ">Image Information :</h4>
+      <div className="p-5 grid grid-flow-row-dense grid-cols-1 gap-3">
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-bold">Type :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {imageType}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-bold">Category :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {imageCategory.join(", ")}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-bold">Captured Date :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {formatDate(capturedDate)}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-bold">Physician :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {imageAuthorData.map((physician, index) => (
+              <div key={physician}>
+                {physician.code.map((cd, idx) => (
+                  <span
+                    key={cd}
+                    className={
+                      cd.code === "RP" ? "text-indigo-600" : "text-blue-500"
+                    }
+                  >
+                    {cd.display}
+                    <span className="text-gray-800">
+                      {idx !== 0 ? "," : ""}
+                    </span>
+                  </span>
+                ))}{" "}
+                - <span>{physician.displayName} - </span>
+                <span>{physician.specialty.join(", ")}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-bold">Date :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+            {formatDate(docDate)}
+          </div>
+        </div>
+        <div className="dash-line p-3 flex gap-2 max-w-full flex-wrap">
+          <img src={attachFile[0].url} height={200} width={200} alt="" />
+          <div className="flex flex-col">
+            <label className="text-lg font-bold">Date :</label>
+            <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2">
+              {attachTitle.join(", ")}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end items-center">
+        <button className="bg-gray-800 text-white p-2 text-lg font-semibold rounded-lg">
+          Create Report
+        </button>
+      </div>
+    </div>
   );
 }
-
-const imgSize = { maxWidth: 350, maxHeight: 350 };
-
-const buttonStyle = {
-  backgroundColor: "rgba(0, 168, 232, 0.95)",
-  ":hover": {
-    backgroundColor: "rgba(0, 168, 232, 1)",
-  },
-};
-
+// http://203.64.84.32:9876/fhir/Bundle/1747
+// http://203.64.84.32:9876/fhir/Bundle/1737
 const getBundle = async () => {
   const response = await axios.get(
-    "http://203.64.84.32:9876/fhir/Bundle/1737",
+    "http://203.64.84.32:9876/fhir/Bundle/1747",
     {
       headers: { Authorization: `Bearer randToken` },
     }
   );
   return response.data.entry;
 };
+
+// const getBundle = async () => {
+//   const response = await data;
+//   return response.entry;
+// };
 
 const formatDate = (date) => {
   return moment(date).format("YYYY-MM-DD (HH:m)");
@@ -220,7 +171,8 @@ const docTypeValue = [];
 const docCategoryValue = [];
 let docSubject;
 let docDate;
-const physician = [];
+const physicianID = [];
+
 let docTitle;
 let responsibleHospital;
 let docSubjectId;
@@ -230,7 +182,7 @@ const imageCategory = [];
 let capturedDate;
 const attachTitle = [];
 const attachFile = [];
-const imageAuthor = [];
+const imageAuthorID = [];
 
 const entries = await getBundle();
 entries.forEach((entry) => {
@@ -241,7 +193,10 @@ entries.forEach((entry) => {
     );
     docSubject = entry.resource.subject.display;
     docDate = entry.resource.date;
-    entry.resource.author.forEach((aut) => physician.push(aut.display));
+    entry.resource.author.forEach((aut) => {
+      const newAut = aut.reference.split("/");
+      physicianID.push(newAut[1]);
+    });
     docTitle = entry.resource.title;
     responsibleHospital = entry.resource.custodian.display;
   }
@@ -262,6 +217,71 @@ entries.forEach((entry) => {
     entry.resource.category.forEach((cat) =>
       cat.coding.forEach((cd) => imageCategory.push(cd.display))
     );
-    entry.resource.author.forEach((aut) => imageAuthor.push(aut.display));
+    entry.resource.author.forEach((aut) => {
+      const newAut = aut.reference.split("/");
+      imageAuthorID.push(newAut[1]);
+    });
   }
+});
+
+/* FILTER */
+const physicianData = [];
+const providerRoles = prov;
+physicianID.forEach((id, index) => {
+  entries.forEach((entry) => {
+    const resource = entry.resource;
+    const code = [];
+    let displayName = "";
+    const specialty = [];
+    if (resource.resourceType === "PractitionerRole" && resource.id === id) {
+      resource.code.forEach((cd) =>
+        cd.coding.forEach((coding) => {
+          providerRoles.concept.filter((cpt) => {
+            if (cpt.code === coding.code)
+              code.push({ code: coding.code, display: cpt.display });
+            return "";
+          });
+        })
+      );
+      displayName = resource.practitioner.display;
+      resource.specialty.forEach((spec) =>
+        spec.coding.forEach((coding) => specialty.push(coding.display))
+      );
+      physicianData.push({
+        code: code,
+        displayName: displayName,
+        specialty: specialty,
+      });
+    }
+  });
+});
+
+const imageAuthorData = [];
+imageAuthorID.forEach((id, index) => {
+  entries.forEach((entry) => {
+    const resource = entry.resource;
+    const code = [];
+    let displayName = "";
+    const specialty = [];
+    if (resource.resourceType === "PractitionerRole" && resource.id === id) {
+      resource.code.forEach((cd) =>
+        cd.coding.forEach((coding) => {
+          providerRoles.concept.filter((cpt) => {
+            if (cpt.code === coding.code)
+              code.push({ code: coding.code, display: cpt.display });
+            return "";
+          });
+        })
+      );
+      displayName = resource.practitioner.display;
+      resource.specialty.forEach((spec) =>
+        spec.coding.forEach((coding) => specialty.push(coding.display))
+      );
+      imageAuthorData.push({
+        code: code,
+        displayName: displayName,
+        specialty: specialty,
+      });
+    }
+  });
 });
