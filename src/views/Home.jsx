@@ -1,10 +1,11 @@
-import Header from "../component/Header"
-import FormInfo from "../component/FormInfo"
-export default function Home(){
-    return(
-        <>
-            <Header />
-            <FormInfo />
-        </>
-    )
+import Header from "../component/Header";
+import DocumentReference from "../component/DocumentReference";
+
+export default function Home() {
+  return (
+    <div className="overflow-hidden">
+      <Header></Header>
+      <DocumentReference></DocumentReference>
+    </div>
+  );
 }
