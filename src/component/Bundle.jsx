@@ -4,7 +4,6 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import { DocumentTextIcon } from "@heroicons/react/20/solid";
 import Modal from "./Modal";
-import Image from "./Image";
 
 import { Ripple, initTE } from "tw-elements";
 

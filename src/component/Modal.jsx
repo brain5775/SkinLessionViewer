@@ -533,15 +533,6 @@ const Modal = (props) => {
                           </div>
                         </div>
                         <div className="flex flex-col gap-2">
-                          <label className="text-lg font-bold">Colors</label>
-                          <div
-                            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2 h-full"
-                            key={lesion.data.color}
-                          >
-                            {lesion.data.color.join(", ")}
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-2">
                           <label className="text-lg font-bold">Size</label>
                           <div
                             className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2 h-full lowercase"
@@ -667,14 +658,13 @@ const Modal = (props) => {
                     <h5 className="text-xl text-white font-bold bg-slate-500 px-4 py-2 rounded-se-lg rounded-ss-lg shadow-xl">
                       Findings - {index + 1}
                     </h5>
-                    <div className="px-4 pt-2 pb-6 rounded-ee-lg rounded-es-lg shadow-xl capitalize">
+                    <div className="px-4 pt-2 pb-6 rounded-ee-lg rounded-es-lg shadow-xl capitalize ">
                       <div className="grid grid-flow-row-dense grid-cols-1 gap-4">
                         {lesion.finding.map((finding, idx) => (
                           <div className="overflow-scroll" key={idx}>
                             <Findings
                               annotation={finding.annotation_data}
                               url={finding.annotation_image.url}
-                              title={finding.annotation_image.title}
                               contentType={finding.annotation_image.contentType}
                             />
                           </div>

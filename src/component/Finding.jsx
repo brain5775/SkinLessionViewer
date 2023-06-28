@@ -1,6 +1,8 @@
 import { Buffer } from "buffer";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import DOMPurify from "dompurify";
+import { uid } from "uid";
 
 const Findings = (props) => {
   const [image, setImage] = useState();
@@ -8,8 +10,8 @@ const Findings = (props) => {
 
   const url = props.url;
   const contentType = props.contentType;
-  const title = props.title;
   const annotation = props.annotation;
+  const unique = uid(4);
   const getImage = async () => {
     try {
       const response = await axios.get(`${url}`, {
@@ -35,19 +37,29 @@ const Findings = (props) => {
   if (Loading) {
     return <div>Loading...</div>;
   }
+
   const newAnnotation = annotation.replace(
-    "\n",
-    `<image x='0' y='0' xlinkHref=${image}></image>`
+    ">",
+    `
+  >
+  <image xlink:href='${image}' x='0' y='0' />
+  `
   );
+
+  // const newAnnotation2 = newAnnotation.replace('width="3008"', "width='200'");
+  // const newAnnotation3 = newAnnotation2.replace(
+  //   'height="2000"',
+  //   "height='200'"
+  // );
+
   return (
-    // <div
-    //   dangerouslySetInnerHTML={{
-    //     __html: newAnnotation,
-    //   }}
-    // ></div>
-    <svg width="3008" height="2000">
-      <image height="100%" width="100%" xlinkHref={image}></image>
-    </svg>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: DOMPurify.sanitize(newAnnotation),
+      }}
+      id={unique}
+      className="finding"
+    ></div>
   );
 };
 

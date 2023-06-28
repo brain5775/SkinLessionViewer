@@ -65,3 +65,13 @@
   border-radius: 0.75rem;
   background-color: #1f2937;
 }
+
+.finding svg {
+  width: 200px;
+  height: 200px;
+}
+
+.finding svg image {
+  width: 200px;
+  height: 200px;
+}
