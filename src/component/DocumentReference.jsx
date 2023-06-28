@@ -11,7 +11,9 @@ const DocumentReference = () => {
   const getDocumentReference = async () => {
     try {
       const response = await axios.get(
-        "https://203.64.84.150:58443/r5/fhir/DocumentReference/4439",
+        // "https://203.64.84.150:58443/r5/fhir/DocumentReference/4439",
+        // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport01",
+        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport02",
         {
           headers: { Authorization: `Bearer randToken` },
         }
@@ -50,7 +52,7 @@ const DocumentReference = () => {
   const docRef_content = docRef.content;
 
   return (
-    <div className="container mx-auto py-12 text-slate 700 font-mono">
+    <div className="container mx-auto py-12 text-slate-700 font-mono">
       <h4 className="text-2xl font-bold">Document Reference :</h4>
       <div className="p-3 mb-3 grid grid-flow-row-dense gap-3">
         <div className="flex gap-2  flex-col">
@@ -123,8 +125,8 @@ const DocumentReference = () => {
         {docRef_content.map((content, index) => (
           <div
             key={index}
-            className="attachment-box overflow-y-auto overflow-x-hidden p-5 mb-6
-            bg-slate-400 rounded-xl scrollbar-none
+            className="p-5 mb-6
+            bg-slate-400 rounded-xl
             "
           >
             <AttachmentFile attachment={content.attachment} />
