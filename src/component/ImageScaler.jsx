@@ -46,16 +46,14 @@ const ImageScaler = (props) => {
           }
         }
       }
+      const imageElement = svgElement.querySelector("image");
+      if (imageElement) {
+        const newImageWidth = svgWidth * scaler;
+        const newImageHeight = svgHeight * scaler;
+        imageElement.setAttribute("width", newImageWidth);
+        imageElement.setAttribute("height", newImageHeight);
+      }
     }
-
-    const imageElement = svgElement.querySelector("image");
-    if (imageElement) {
-      const newImageWidth = svgWidth * scaler;
-      const newImageHeight = svgHeight * scaler;
-      imageElement.setAttribute("width", newImageWidth);
-      imageElement.setAttribute("height", newImageHeight);
-    }
-
     svgRef.current.appendChild(htmlElement);
   }, []);
   return <div ref={svgRef}></div>;

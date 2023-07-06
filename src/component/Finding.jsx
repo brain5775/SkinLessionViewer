@@ -44,29 +44,7 @@ const Findings = (props) => {
   `
   );
 
-  return (
-    // <div
-    //   dangerouslySetInnerHTML={{
-    //     __html: DOMPurify.sanitize(newAnnotation),
-    //   }}
-    //   id={unique}
-    //   className="finding"
-    // ></div>
-    <ImageScaler image={newAnnotation} />
-  );
+  return <ImageScaler image={newAnnotation} />;
 };
 
 export default Findings;
-// function setDefaultMode() {
-//     scaledImage.width = sourceImage.width;
-//     scaledImage.height = sourceImage.height;
-//     if (scaledImage.height > canvasordivHeight || scaledImage.width > canvasordivWidth) {
-//         let scale1 = canvasordivWidth / sourceImage.width;
-//         let scale2 = canvasordivHeight / sourceImage.height;
-//         let scale = Math.min(scale1, scale2);
-
-//         scaledImage.height *= scale;
-//         scaledImage.width *= scale;
-//     }
-//     fitCanvasordivRatio = scaledImage.width / sourceImage.width;
-//     scale}
