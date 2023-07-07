@@ -76,10 +76,10 @@ const DocumentReference = () => {
         <div className="flex gap-2 flex-col">
           <label className="text-lg font-bold">Document Category :</label>
           <div
-            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2"
+            className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2 whitespace-pre"
             key={docRef_category}
           >
-            {docRef_category.join(", ")}
+            {docRef_category.join("\r\n")}
           </div>
         </div>
         <div className="flex gap-2 flex-col">

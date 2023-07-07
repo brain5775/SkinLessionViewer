@@ -621,7 +621,7 @@ const Modal = (props) => {
                             className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2 h-full"
                             key={lesion.data.skin_type}
                           >
-                            {lesion.data.skin_type.join(", ")}
+                            {lesion.data.skin_type.join(",")}
                           </div>
                         </div>
                         <div className="flex flex-col gap-2">

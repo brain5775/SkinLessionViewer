@@ -17,8 +17,8 @@ const ImageScaler = (props) => {
       svgElement.setAttribute("height", "300");
       const childSVGElement = svgElement.children;
       if (svgWidth > 300 || svgHeight > 300) {
-        const scale1 = 300 / svgWidth;
-        const scale2 = 300 / svgHeight;
+        const scale1 = 300 / svgWidth; //around 3008
+        const scale2 = 300 / svgHeight; //around 2000
         const totalScale = Math.min(scale1, scale2);
         scaler = totalScale;
       }
@@ -39,7 +39,10 @@ const ImageScaler = (props) => {
               att.nodeName === "x" ||
               att.nodeName === "y" ||
               att.nodeName === "width" ||
-              att.nodeName === "height"
+              att.nodeName === "height" ||
+              att.nodeName === "cy" ||
+              att.nodeName === "cx" ||
+              att.nodeName === "r"
             ) {
               att.nodeValue *= scaler;
             }

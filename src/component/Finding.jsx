@@ -36,11 +36,13 @@ const Findings = (props) => {
     return <div>Loading...</div>;
   }
 
+  console.log(annotation);
+
   const newAnnotation = annotation.replace(
     ">",
     `
-    >
-    <image xlink:href='${image}' x='0' y='0' />
+    viewBox="0 0 100 100">
+    <image xlink:href='${image}' />
   `
   );
 
