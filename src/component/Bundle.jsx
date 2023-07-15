@@ -18,6 +18,7 @@ const Bundle = (props) => {
   const url = props.url;
 
   const formatDate = (date) => {
+    console.log(date);
     return moment(date).format("YYYY-MM-DD (HH:m)");
   };
 

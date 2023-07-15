@@ -83,7 +83,7 @@ const Modal = (props) => {
   report.conclusionCode.forEach((cc) =>
     cc.coding.forEach((coding) => report_diagnostic.push(coding.display))
   );
-  console.log(data);
+  // console.log(data);
 
   // lesion
   const lesion_observation = [];
@@ -236,6 +236,13 @@ const Modal = (props) => {
       const df = derivedFrom.reference.split("/");
       let annotation_data;
       let annotation_image;
+      let panX;
+      let panY;
+      let canvasOriginalWidth;
+      let canvasOriginalHeight;
+      let imageOriginalWidth;
+      let imageOriginalHeight;
+      let scale;
       const search_annotation = data.filter((entry) => {
         const resource = entry.resource;
         if (resource.resourceType === df[0] && resource.id === df[1])
@@ -252,11 +259,48 @@ const Modal = (props) => {
             annotation_image = component.valueAttachment;
             return this;
           }
+          if (coding.code === "pan.x") {
+            panX = parseInt(component.valueString);
+            return this;
+          }
+          if (coding.code === "pan.y") {
+            panY = parseInt(component.valueString);
+            return this;
+          }
+          if (coding.code === "canvas.original.width") {
+            canvasOriginalWidth = parseInt(component.valueString);
+            return this;
+          }
+          if (coding.code === "canvas.original.height") {
+            canvasOriginalHeight = parseInt(component.valueString);
+            return this;
+          }
+          if (coding.code === "image.original.width") {
+            imageOriginalWidth = parseInt(component.valueString);
+            return this;
+          }
+          if (coding.code === "image.original.height") {
+            imageOriginalHeight = parseInt(component.valueString);
+            return this;
+          }
+          if (coding.code === "scale") {
+            scale = parseFloat(component.valueString);
+            return this;
+          }
         });
       });
       finding.push({
         annotation_data,
         annotation_image,
+        scaler: {
+          panX: panX,
+          panY: panY,
+          canvasOriginalWidth: canvasOriginalWidth,
+          canvasOriginalHeight: canvasOriginalHeight,
+          imageOriginalWidth: imageOriginalWidth,
+          imageOriginalHeight: imageOriginalHeight,
+          scale: scale,
+        },
       });
     });
     lesion_observation.push({
@@ -282,7 +326,7 @@ const Modal = (props) => {
     });
   });
 
-  console.log(lesion_observation);
+  // console.log(lesion_observation);
 
   return (
     <>
@@ -666,6 +710,7 @@ const Modal = (props) => {
                               annotation={finding.annotation_data}
                               url={finding.annotation_image.url}
                               contentType={finding.annotation_image.contentType}
+                              scaler={finding.scaler}
                             />
                           </div>
                         ))}

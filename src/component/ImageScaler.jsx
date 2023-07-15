@@ -3,6 +3,8 @@ import { useRef, useEffect } from "react";
 const ImageScaler = (props) => {
   const svg = props.image;
   const svgRef = useRef(null);
+  const scaler = props.scaler;
+  // console.log(scaler);
 
   useEffect(() => {
     const parser = new DOMParser();
@@ -11,18 +13,25 @@ const ImageScaler = (props) => {
     const svgElement = htmlElement.querySelector("svg");
     const svgWidth = svgElement.getAttribute("width");
     const svgHeight = svgElement.getAttribute("height");
-    let scaler;
+    const width = 900;
+    const height = 1600;
     if (svgElement) {
-      svgElement.setAttribute("width", "300");
-      svgElement.setAttribute("height", "300");
+      svgElement.setAttribute("width", width);
+      svgElement.setAttribute("height", height);
+      svgElement.setAttribute("class", "border-black border-2 my-2");
       const childSVGElement = svgElement.children;
-      if (svgWidth > 300 || svgHeight > 300) {
-        const scale1 = 300 / svgWidth; //around 3008
-        const scale2 = 300 / svgHeight; //around 2000
-        const totalScale = Math.min(scale1, scale2);
-        scaler = totalScale;
-      }
+      let trueScale;
+      let mainScale;
+      const min = Math.min(
+        width / scaler.canvasOriginalWidth,
+        height / scaler.canvasOriginalHeight
+      );
+      trueScale = min;
+      mainScale = scaler.scale;
 
+      console.log(scaler);
+      console.log(trueScale);
+      console.log(mainScale);
       for (let i = 0; i < childSVGElement.length; i++) {
         if (i !== 0) {
           for (
@@ -34,27 +43,54 @@ const ImageScaler = (props) => {
             j++
           ) {
             att = atts[j];
-            // console.log(att.nodeValue);
             if (
-              att.nodeName === "x" ||
-              att.nodeName === "y" ||
               att.nodeName === "width" ||
               att.nodeName === "height" ||
-              att.nodeName === "cy" ||
-              att.nodeName === "cx" ||
               att.nodeName === "r"
             ) {
-              att.nodeValue *= scaler;
+              att.nodeValue = att.nodeValue * trueScale * mainScale;
+              console.log(att.nodeName + ":" + att.nodeValue);
+            }
+            if (
+              att.nodeName === "x" ||
+              att.nodeName === "cx" ||
+              att.nodeName === "rx"
+            ) {
+              att.nodeValue =
+                (parseInt(att.nodeValue) + scaler.panX) * trueScale * mainScale;
+              console.log(att.nodeValue);
+            }
+            if (
+              att.nodeName === "y" ||
+              att.nodeName === "cy" ||
+              att.nodeName === "ry"
+            ) {
+              att.nodeValue =
+                (parseInt(att.nodeValue) + scaler.panX) * trueScale * mainScale;
+              console.log(att.nodeName + ":" + att.nodeValue);
             }
           }
         }
       }
       const imageElement = svgElement.querySelector("image");
       if (imageElement) {
-        const newImageWidth = svgWidth * scaler;
-        const newImageHeight = svgHeight * scaler;
+        const newImageWidth = scaler.imageOriginalWidth * trueScale * mainScale;
+        const newImageHeight =
+          scaler.imageOriginalHeight * trueScale * mainScale;
+        const x = scaler.panX * trueScale * mainScale;
+        const y = scaler.panY * trueScale * mainScale;
+
+        console.log(
+          scaler.imageOriginalWidth,
+          scaler.imageOriginalHeight,
+          trueScale,
+          mainScale
+        );
+        console.log(newImageWidth, newImageHeight, x, y);
         imageElement.setAttribute("width", newImageWidth);
         imageElement.setAttribute("height", newImageHeight);
+        imageElement.setAttribute("x", x);
+        imageElement.setAttribute("y", y);
       }
     }
     svgRef.current.appendChild(htmlElement);

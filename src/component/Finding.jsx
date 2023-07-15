@@ -10,6 +10,7 @@ const Findings = (props) => {
   const url = props.url;
   const contentType = props.contentType;
   const annotation = props.annotation;
+  const scaler = props.scaler;
   const getImage = async () => {
     try {
       const response = await axios.get(`${url}`, {
@@ -41,12 +42,12 @@ const Findings = (props) => {
   const newAnnotation = annotation.replace(
     ">",
     `
-    viewBox="0 0 100 100">
+    >
     <image xlink:href='${image}' />
   `
   );
 
-  return <ImageScaler image={newAnnotation} />;
+  return <ImageScaler image={newAnnotation} scaler={scaler} />;
 };
 
 export default Findings;
