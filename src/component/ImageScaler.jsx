@@ -54,7 +54,9 @@ const ImageScaler = (props) => {
             if (
               att.nodeName === "x" ||
               att.nodeName === "cx" ||
-              att.nodeName === "rx"
+              att.nodeName === "rx" ||
+              att.nodeName === "x1" ||
+              att.nodeName === "x2"
             ) {
               att.nodeValue =
                 (parseInt(att.nodeValue) + scaler.panX) * trueScale * mainScale;
@@ -63,7 +65,9 @@ const ImageScaler = (props) => {
             if (
               att.nodeName === "y" ||
               att.nodeName === "cy" ||
-              att.nodeName === "ry"
+              att.nodeName === "ry" ||
+              att.nodeName === "y1" ||
+              att.nodeName === "y2"
             ) {
               att.nodeValue =
                 (parseInt(att.nodeValue) + scaler.panX) * trueScale * mainScale;
