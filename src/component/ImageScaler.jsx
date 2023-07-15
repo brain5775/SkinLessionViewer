@@ -13,8 +13,8 @@ const ImageScaler = (props) => {
     const svgElement = htmlElement.querySelector("svg");
     const svgWidth = svgElement.getAttribute("width");
     const svgHeight = svgElement.getAttribute("height");
-    const width = 900;
-    const height = 1600;
+    const width = 300;
+    const height = 300;
     if (svgElement) {
       svgElement.setAttribute("width", width);
       svgElement.setAttribute("height", height);
