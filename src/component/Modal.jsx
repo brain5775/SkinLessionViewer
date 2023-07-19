@@ -1,6 +1,7 @@
 import { prov } from "../test/data";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { Ripple, initTE } from "tw-elements";
+import mime from "mime";
 import moment from "moment";
 import Image from "./Image";
 import Findings from "./Finding";
@@ -236,6 +237,7 @@ const Modal = (props) => {
       const df = derivedFrom.reference.split("/");
       let annotation_data;
       let annotation_image;
+      let contentType;
       let panX;
       let panY;
       let canvasOriginalWidth;
@@ -248,15 +250,16 @@ const Modal = (props) => {
         if (resource.resourceType === df[0] && resource.id === df[1])
           return entry;
       });
-
       search_annotation[0].resource.component.forEach((component) => {
         component.code.coding.filter((coding) => {
           if (coding.code === "annotation.svg") {
-            annotation_data = atob(component.valueAttachment.data).trim();
+            annotation_data = atob(component.valueString).trim();
+            console.log(annotation_data);
             return this;
           }
           if (coding.code === "annotated.image") {
-            annotation_image = component.valueAttachment;
+            annotation_image = component.valueString;
+            contentType = mime.getType(annotation_image);
             return this;
           }
           if (coding.code === "pan.x") {
@@ -292,6 +295,7 @@ const Modal = (props) => {
       finding.push({
         annotation_data,
         annotation_image,
+        contentType,
         scaler: {
           panX: panX,
           panY: panY,
@@ -708,8 +712,8 @@ const Modal = (props) => {
                           <div className="overflow-scroll" key={idx}>
                             <Findings
                               annotation={finding.annotation_data}
-                              url={finding.annotation_image.url}
-                              contentType={finding.annotation_image.contentType}
+                              url={finding.annotation_image}
+                              contentType={finding.contentType}
                               scaler={finding.scaler}
                             />
                           </div>

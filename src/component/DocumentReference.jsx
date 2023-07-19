@@ -13,7 +13,9 @@ const DocumentReference = () => {
       const response = await axios.get(
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/4439",
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport01",
-        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport02",
+        // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport02", //rectangle
+        // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport03", //circle
+        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport04", //polygon
         {
           headers: { Authorization: `Bearer randToken` },
         }

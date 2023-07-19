@@ -11,6 +11,7 @@ const Findings = (props) => {
   const contentType = props.contentType;
   const annotation = props.annotation;
   const scaler = props.scaler;
+  console.log(contentType);
   const getImage = async () => {
     try {
       const response = await axios.get(`${url}`, {
@@ -21,8 +22,10 @@ const Findings = (props) => {
         responseType: "arraybuffer",
       });
       const imgURL =
-        `data:image/${contentType};base64, ` +
+        `data:${contentType};base64, ` +
         Buffer.from(response.data, "binary").toString("base64");
+      console.log(response.data);
+      console.log(imgURL);
       setImage(imgURL);
       setLoading(false);
     } catch (error) {
@@ -37,15 +40,13 @@ const Findings = (props) => {
     return <div>Loading...</div>;
   }
 
-  console.log(annotation);
-
   const newAnnotation = annotation.replace(
     ">",
     `
-    >
-    <image xlink:href='${image}' />
+    ><image xlink:href='${image}' />
   `
   );
+  console.log(image);
 
   return <ImageScaler image={newAnnotation} scaler={scaler} />;
 };

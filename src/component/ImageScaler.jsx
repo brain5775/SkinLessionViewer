@@ -43,34 +43,49 @@ const ImageScaler = (props) => {
             j++
           ) {
             att = atts[j];
+            if (att.nodeName === "points") {
+              let currNode = att.nodeValue.split(" ");
+              const mainNode = [];
+              currNode.forEach((node) => {
+                let newNode = node.split(",");
+                newNode[0] =
+                  (parseInt(newNode[0]) + scaler.panX) * trueScale * mainScale;
+                newNode[1] =
+                  (parseInt(newNode[1]) + scaler.panY) * trueScale * mainScale;
+                mainNode.push([newNode[0], newNode[1]]);
+              });
+              att.nodeValue = mainNode.join(" ");
+            }
             if (
               att.nodeName === "width" ||
               att.nodeName === "height" ||
-              att.nodeName === "r"
+              att.nodeName === "r" ||
+              att.nodeName === "rx" ||
+              att.nodeName === "ry" ||
+              att.nodeName === "stroke-width"
             ) {
-              att.nodeValue = att.nodeValue * trueScale * mainScale;
+              att.nodeValue = parseInt(att.nodeValue) * trueScale * mainScale;
               console.log(att.nodeName + ":" + att.nodeValue);
             }
             if (
               att.nodeName === "x" ||
               att.nodeName === "cx" ||
-              att.nodeName === "rx" ||
               att.nodeName === "x1" ||
               att.nodeName === "x2"
             ) {
+              console.log(att.nodeName + ":" + att.nodeValue);
               att.nodeValue =
                 (parseInt(att.nodeValue) + scaler.panX) * trueScale * mainScale;
-              console.log(att.nodeValue);
+              console.log(att.nodeName + ":" + att.nodeValue);
             }
             if (
               att.nodeName === "y" ||
               att.nodeName === "cy" ||
-              att.nodeName === "ry" ||
               att.nodeName === "y1" ||
               att.nodeName === "y2"
             ) {
               att.nodeValue =
-                (parseInt(att.nodeValue) + scaler.panX) * trueScale * mainScale;
+                (parseInt(att.nodeValue) + scaler.panY) * trueScale * mainScale;
               console.log(att.nodeName + ":" + att.nodeValue);
             }
           }
@@ -78,11 +93,12 @@ const ImageScaler = (props) => {
       }
       const imageElement = svgElement.querySelector("image");
       if (imageElement) {
-        const newImageWidth = scaler.imageOriginalWidth * trueScale * mainScale;
+        const newImageWidth =
+          parseInt(scaler.imageOriginalWidth) * trueScale * mainScale;
         const newImageHeight =
-          scaler.imageOriginalHeight * trueScale * mainScale;
-        const x = scaler.panX * trueScale * mainScale;
-        const y = scaler.panY * trueScale * mainScale;
+          parseInt(scaler.imageOriginalHeight) * trueScale * mainScale;
+        const x = parseInt(scaler.panX) * trueScale * mainScale;
+        const y = parseInt(scaler.panY) * trueScale * mainScale;
 
         console.log(
           scaler.imageOriginalWidth,
