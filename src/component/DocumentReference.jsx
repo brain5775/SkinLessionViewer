@@ -20,7 +20,8 @@ const DocumentReference = () => {
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport04", //polygon
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport05", //line
         // "https://fhir.tcumi.com:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport06", // flipping
-        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport08",
+        // "https://fhir.tcumi.com:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport07", // rotate
+        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport08", // pdf
         {
           headers: { Authorization: `Bearer randToken` },
         }
