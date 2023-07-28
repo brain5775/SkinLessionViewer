@@ -1,3 +1,4 @@
+import BoxPdf from "./BoxPdf";
 import Bundle from "./Bundle";
 import Image from "./Image";
 
@@ -10,7 +11,7 @@ const AttachmentFile = (props) => {
     return (
       <>
         <h3 className="text-xl font-extrabold">{title}</h3>
-        <Bundle url={url}></Bundle>
+        <Bundle url={url} />
       </>
     );
   }
@@ -24,11 +25,28 @@ const AttachmentFile = (props) => {
           </div>
         </div>
         <div className="my-3 w-2/5 h-2/5">
-          <Image url={url} contentType={contentType[1]}></Image>
+          <Image url={url} contentType={contentType[1]} />
         </div>
       </>
     );
   }
+
+  if (contentType[0] === "application" && contentType[1] === "pdf") {
+    return (
+      <>
+        <div className="flex flex-col gap-3 flex-auto">
+          <label className="text-lg font-bold">PDF Title :</label>
+          <div className="rounded-md bg-gray-300 text-gray-800 font-semibold p-2 text-ellipsis overflow-hidden">
+            {title}
+          </div>
+        </div>
+        <div className="my-3 overflow-y-auto max-h-[600px] flex w-fit">
+          <BoxPdf url={url} contentType={contentType[1]} />
+        </div>
+      </>
+    );
+  }
+
   return <>Hadeh</>;
 };
 

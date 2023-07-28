@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 import AttachmentFile from "./AttachmentFile";
 import "../styles/formInfo.css";
+import { useParams } from "react-router-dom";
 
 const DocumentReference = () => {
+  let { id } = useParams();
   const [docRef, setDocRef] = useState();
   const [Loading, setLoading] = useState(true);
 
@@ -16,7 +18,9 @@ const DocumentReference = () => {
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport02", //rectangle
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport03", //circle
         // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport04", //polygon
-        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport05", //line
+        // "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport05", //line
+        // "https://fhir.tcumi.com:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport06", // flipping
+        "https://203.64.84.150:58443/r5/fhir/DocumentReference/TCUMI.DocumentReference.skinlesionreport08",
         {
           headers: { Authorization: `Bearer randToken` },
         }
